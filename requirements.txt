@@ -1,7 +1,7 @@
 # --- For-Bot-Working --------- #
-https://codeload.github.com/KurimuzonAkuma/pyrogram/zip/refs/heads/dev
+pyrogram
 TgCrypto
-pyromod
+pyromod==1.5
 python-dotenv
 # --- For-Database ------------ #
 pymongo
