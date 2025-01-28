@@ -161,44 +161,41 @@ REPLY_ERROR = """<code>Use this command as a replay to any telegram message with
 #=====================================================================================##
 
 
-@Client.on_message(filters.command('start') & filters.private)
+@Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
     buttons = [
         [
             InlineKeyboardButton(
-                "Join Channel 1", url=client.invitelink),  # Make sure client.invitelink is set
+                "Join Channel",
+                url = client.invitelink),
             InlineKeyboardButton(
-                "Join Channel 2", url=client.invitelink2),  # Make sure client.invitelink2 is set
+                "Join Channel",
+                url = client.invitelink2),
         ]
     ]
-    
     try:
-        # Try adding the 'Try Again' button only if command has arguments
-        command_argument = message.command[1] if len(message.command) > 1 else None
-        if command_argument:
-            buttons.append(
-                [
-                    InlineKeyboardButton(
-                        text='Try Again',
-                        url=f"https://t.me/{client.username}?start={command_argument}"
-                    )
-                ]
-            )
+        buttons.append(
+            [
+                InlineKeyboardButton(
+                    text = 'Try Again',
+                    url = f"https://t.me/{client.username}?start={message.command[1]}"
+                )
+            ]
+        )
     except IndexError:
-        pass  # This will catch any index errors when no command arguments are passed
+        pass
 
-    # Responding to the user
     await message.reply(
-        text=FORCE_MSG.format(
-            first=message.from_user.first_name,
-            last=message.from_user.last_name,
-            username=None if not message.from_user.username else '@' + message.from_user.username,
-            mention=message.from_user.mention,
-            id=message.from_user.id
-        ),
-        reply_markup=InlineKeyboardMarkup(buttons),
-        quote=True,
-        disable_web_page_preview=True
+        text = FORCE_MSG.format(
+                first = message.from_user.first_name,
+                last = message.from_user.last_name,
+                username = None if not message.from_user.username else '@' + message.from_user.username,
+                mention = message.from_user.mention,
+                id = message.from_user.id
+            ),
+        reply_markup = InlineKeyboardMarkup(buttons),
+        quote = True,
+        disable_web_page_preview = True
     )
 
 
