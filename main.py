@@ -1,3 +1,5 @@
 from bot import Bot
 
-Bot().run()
+if __name__ == "__main__":
+    # Correct way to run bot without use_qr
+    Bot().run()
